@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 export default function useResize(callback, throttle = 50) {
+    console.log('useResize')
     useEffect(() => {
         let timeout
         const handleResize = () => {

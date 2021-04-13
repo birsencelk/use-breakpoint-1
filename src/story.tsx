@@ -20,7 +20,7 @@ storiesOf('Hooks|useBreakpoint', module).add(
             ['small', 'is small'],
             ['medium', 'is medium'],
             ['large', 'is large']
-        ])
+        ], 'resize')
 
         console.log(useBreakpoint())
 

@@ -53,6 +53,7 @@ const calculateProplessValue = function (iw, ih) {
 export const calculateValue: TCalculateValue = function (
     defaultValue,
     breakpointValues = [],
+    operation,
     iw = typeof window !== 'undefined' && window.innerWidth,
     ih = typeof window !== 'undefined' && window.innerHeight
 ) {
@@ -75,6 +76,7 @@ export const calculateValue: TCalculateValue = function (
         if (iw >= bp[0] && iw <= bp[1]) return value
     }
     return defaultValue
+    return operation
 }
 
 // @ts-ignore
@@ -85,15 +87,36 @@ const getInnerHeight = () => (typeof window !== 'undefined' ? window.innerHeight
 let cachedIw = getInnerWidth()
 let cachedIh = getInnerHeight()
 
-export function useBreakpoint(defaultValue: any, breakpointValues: any[]): any
+export function useBreakpoint(defaultValue: any, breakpointValues: any[], operation:any): any
 export function useBreakpoint(): { [key: string]: boolean }
-export function useBreakpoint(defaultValue?, breakpointValues?) {
+export function useBreakpoint(defaultValue?, breakpointValues?, operation?) {
     const [[innerWidth, innerHeight], setInnerWidth] = useState([cachedIw, cachedIh])
-    useResize(() => {
-        cachedIw = getInnerWidth()
-        cachedIh = getInnerHeight()
-        setInnerWidth([cachedIw, cachedIh])
-    })
+    // useResize(() => {
+    //     cachedIw = getInnerWidth()
+    //     cachedIh = getInnerHeight()
+    //     setInnerWidth([cachedIw, cachedIh])
+    // })
+
+    // useResize(() => {
+    //     cachedIw = getInnerWidth()
+    //     cachedIh = getInnerHeight()
+    //     setInnerWidth([cachedIw, cachedIh])
+    // })
+
+    if(operation==='resize') {
+        useResize(() => {
+            cachedIw = getInnerWidth()
+            cachedIh = getInnerHeight()
+            setInnerWidth([cachedIw, cachedIh])
+        })
+    
+        useResize(() => {
+            cachedIw = getInnerWidth()
+            cachedIh = getInnerHeight()
+            setInnerWidth([cachedIw, cachedIh])
+        })
+    }
+
     return useMemo(() => calculateValue(defaultValue, breakpointValues, innerWidth, innerHeight), [
         innerWidth,
         innerHeight,
