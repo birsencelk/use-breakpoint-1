@@ -22,6 +22,15 @@ storiesOf('Hooks|useBreakpoint', module).add(
             ['large', 'is large']
         ], 'resize')
 
+        const value1 = useBreakpoint('none', [
+            ['micro', 'is micro'],
+            ['mobile', 'is mobile'],
+            ['tablet', 'is tablet'],
+            ['small', 'is small'],
+            ['medium', 'is medium'],
+            ['large', 'is large']
+        ], 'resize')
+
         console.log(useBreakpoint())
 
         return <div>
@@ -35,7 +44,7 @@ storiesOf('Hooks|useBreakpoint', module).add(
     ['large', 'is large']
 ])`}
             </pre>
-            <div>`{value}` is the current value. Resize to change.</div>
+            <div>`{value}` `{value1}` is the current value. Resize to change.</div>
             <div><br />For more info please see <strong>Notes</strong> tab.</div>
         </div>
     },
